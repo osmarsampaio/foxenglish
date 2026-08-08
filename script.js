@@ -23,20 +23,72 @@ document.addEventListener('DOMContentLoaded', () => {
   const navToggle = document.getElementById('navToggle');
   const navLinks = document.getElementById('navLinks');
 
+  const navClose = document.getElementById('navClose');
+  const navBackdrop = document.getElementById('navBackdrop');
+  const mobileQuery = window.matchMedia('(max-width:760px)');
+
+  function syncMenuA11y() {
+    if (!navLinks) return;
+    if (mobileQuery.matches) {
+      navLinks.setAttribute('aria-hidden', navLinks.classList.contains('open') ? 'false' : 'true');
+      if (navBackdrop) {
+        navBackdrop.setAttribute('aria-hidden', navBackdrop.classList.contains('open') ? 'false' : 'true');
+      }
+    } else {
+      navLinks.removeAttribute('aria-hidden');
+      if (navBackdrop) {
+        navBackdrop.setAttribute('aria-hidden', 'true');
+      }
+    }
+  }
+
+  function closeMenu() {
+    if (document.activeElement && navLinks.contains(document.activeElement)) {
+      document.activeElement.blur();
+    }
+    navLinks.classList.remove('open');
+    navToggle.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+    syncMenuA11y();
+    if (navBackdrop) navBackdrop.classList.remove('open');
+  }
+
+  function openMenu() {
+    navLinks.classList.add('open');
+    navToggle.classList.add('open');
+    navToggle.setAttribute('aria-expanded', 'true');
+    if (navBackdrop) navBackdrop.classList.add('open');
+    syncMenuA11y();
+  }
+
+  syncMenuA11y();
+  if (mobileQuery.addEventListener) {
+    mobileQuery.addEventListener('change', syncMenuA11y);
+  } else if (mobileQuery.addListener) {
+    mobileQuery.addListener(syncMenuA11y);
+  }
+
   if (navToggle && navLinks) {
     navToggle.addEventListener('click', () => {
-      const isOpen = navLinks.classList.toggle('open');
-      navToggle.classList.toggle('open', isOpen);
-      navToggle.setAttribute('aria-expanded', String(isOpen));
+      const isOpen = !navLinks.classList.contains('open');
+      if (isOpen) {
+        openMenu();
+      } else {
+        closeMenu();
+      }
     });
 
     navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        navLinks.classList.remove('open');
-        navToggle.classList.remove('open');
-        navToggle.setAttribute('aria-expanded', 'false');
-      });
+      link.addEventListener('click', () => closeMenu());
     });
+
+    if (navClose) {
+      navClose.addEventListener('click', closeMenu);
+    }
+
+    if (navBackdrop) {
+      navBackdrop.addEventListener('click', closeMenu);
+    }
   }
 
   /* ---------- parallax no scroll ---------- */
@@ -94,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const playBtn = document.getElementById('playBtn');
   if (playBtn) {
     playBtn.addEventListener('click', () => {
-      alert('Insira aqui o link ou arquivo do vídeo do professor (troque este botão por um <video> ou <iframe> no index.html).');
+      alert('GRAVA O VIDEO E ME MANDA FELADAPUTA');
     });
   }
 });

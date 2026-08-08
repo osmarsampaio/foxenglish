@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
-<link rel="icon" href="imgs/favicon.png" type="image/x-icon">
+<link rel="icon" href="imgs/favicon.png" type="image/png">
 </head>
 <body>
 
@@ -26,12 +26,16 @@
     </button>
 
     <nav class="nav-links" id="navLinks">
+      <button class="nav-close" id="navClose" aria-label="Fechar menu">
+        <span></span><span></span>
+      </button>
       <a href="#metodo">O método</a>
       <a href="#inclui">O que inclui</a>
       <a href="#resultados">Resultados</a>
       <a href="#investimento">Investimento</a>
       <a href="#" class="btn btn-primary btn-sm whatsapp-link">Falar no WhatsApp</a>
     </nav>
+    <div class="nav-backdrop" id="navBackdrop" aria-hidden="true"></div>
   </div>
 </header>
 
