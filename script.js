@@ -91,62 +91,150 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  /* ---------- parallax no scroll ---------- */
-  const parallaxEls = Array.from(document.querySelectorAll('[data-speed]'));
+  /* ---------- efeito de revelar ao rolar a tela (estilo fade + subida) ---------- */
+  // qualquer elemento com class="stagger-group" tem seus filhos diretos revelados
+  // em cascata (um pouco depois do outro) assim que entram na tela
+  document.querySelectorAll('.stagger-group').forEach(group => {
+    Array.from(group.children).forEach((child, i) => {
+      child.classList.add('reveal');
+      const extraDelay = parseFloat(child.style.transitionDelay) || 0;
+      child.style.transitionDelay = `${i * 60 + extraDelay}ms`;
+    });
+  });
 
-  function updateParallax() {
+  const revealEls = document.querySelectorAll('.reveal');
+
+  if (!reduceMotion && 'IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+
+    revealEls.forEach(el => revealObserver.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('is-visible'));
+  }
+
+  /* ---------- parallax: scroll + movimento do mouse combinados ---------- */
+  const parallaxEls = Array.from(document.querySelectorAll('[data-speed], [data-depth]'));
+  const baseRects = new Map();
+
+  // mede a posição "natural" de cada elemento (sem transform) uma vez,
+  // e reaproveita esse valor — evita recalcular sobre um elemento já deslocado
+  function cacheBaseRects() {
+    parallaxEls.forEach(el => {
+      const prevTransform = el.style.transform;
+      el.style.transform = 'none';
+      const rect = el.getBoundingClientRect();
+      baseRects.set(el, { top: rect.top + window.scrollY, height: rect.height });
+      el.style.transform = prevTransform;
+    });
+  }
+
+  const mouseOffset = new Map();
+  const scrollOffset = new Map();
+
+  function applyTransform(el) {
+    const sy = scrollOffset.get(el) || 0;
+    const m = mouseOffset.get(el) || { x: 0, y: 0 };
+    el.style.transform = `translate3d(${m.x.toFixed(1)}px, ${(sy + m.y).toFixed(1)}px, 0)`;
+  }
+
+  function updateScrollParallax() {
     const viewportH = window.innerHeight;
     const scrollY = window.scrollY;
 
     parallaxEls.forEach(el => {
-      const speed = parseFloat(el.dataset.speed) || 0.1;
-      const rect = el.getBoundingClientRect();
-      const elementTop = rect.top + scrollY;
-      const distanceFromCenter = (scrollY + viewportH / 2) - (elementTop + rect.height / 2);
-      const offset = distanceFromCenter * speed * 0.15;
-      el.style.transform = `translateY(${offset}px)`;
+      const speed = parseFloat(el.dataset.speed);
+      if (!speed) return;
+      const base = baseRects.get(el);
+      if (!base) return;
+      const distanceFromCenter = (scrollY + viewportH / 2) - (base.top + base.height / 2);
+      scrollOffset.set(el, distanceFromCenter * speed * 0.4);
+      applyTransform(el);
+    });
+  }
+
+  function updateMouseParallax(e) {
+    const cx = e.clientX / window.innerWidth - 0.5;
+    const cy = e.clientY / window.innerHeight - 0.5;
+
+    parallaxEls.forEach(el => {
+      const depth = parseFloat(el.dataset.depth);
+      if (!depth) return;
+      mouseOffset.set(el, { x: cx * depth, y: cy * depth });
+      applyTransform(el);
     });
   }
 
   if (!reduceMotion) {
+    cacheBaseRects();
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        cacheBaseRects();
+        updateScrollParallax();
+      }, 150);
+    });
+
     let ticking = false;
     window.addEventListener('scroll', () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          updateParallax();
+          updateScrollParallax();
           ticking = false;
         });
         ticking = true;
       }
     }, { passive: true });
-    updateParallax();
+    updateScrollParallax();
+
+    if (!isCoarsePointer) {
+      let mouseTicking = false;
+      window.addEventListener('mousemove', (e) => {
+        if (!mouseTicking) {
+          window.requestAnimationFrame(() => {
+            updateMouseParallax(e);
+            mouseTicking = false;
+          });
+          mouseTicking = true;
+        }
+      }, { passive: true });
+    }
   }
 
-  /* ---------- tilt sutil no card do vídeo (desktop apenas) ---------- */
-  const tiltCard = document.getElementById('tiltCard');
-
-  if (tiltCard && !isCoarsePointer && !reduceMotion) {
-    const maxTilt = 4;
-
-    tiltCard.addEventListener('mousemove', (e) => {
-      const rect = tiltCard.getBoundingClientRect();
+  /* ---------- tilt 3D no card do vídeo e na foto da raposa (desktop apenas) ---------- */
+  function bindTilt(el, maxTilt) {
+    if (!el) return;
+    el.addEventListener('mousemove', (e) => {
+      const rect = el.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width - 0.5;
       const y = (e.clientY - rect.top) / rect.height - 0.5;
       const rotateX = (-y * maxTilt).toFixed(2);
       const rotateY = (x * maxTilt).toFixed(2);
-      tiltCard.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      el.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.015)`;
     });
+    el.addEventListener('mouseleave', () => {
+      el.style.transform = 'none';
+    });
+  }
 
-    tiltCard.addEventListener('mouseleave', () => {
-      tiltCard.style.transform = 'none';
-    });
+  if (!isCoarsePointer && !reduceMotion) {
+    bindTilt(document.getElementById('tiltCard'), 7);
+    bindTilt(document.getElementById('tiltPhoto'), 5);
   }
 
   /* ---------- botão de play (placeholder do vídeo) ---------- */
   const playBtn = document.getElementById('playBtn');
   if (playBtn) {
     playBtn.addEventListener('click', () => {
-      alert('GRAVA O VIDEO E ME MANDA FELADAPUTA');
+      alert('Insira aqui o link ou arquivo do vídeo do professor (troque este botão por um <video> ou <iframe> no index.html).');
     });
   }
 });

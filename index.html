@@ -31,8 +31,7 @@
       </button>
       <a href="#metodo">O método</a>
       <a href="#inclui">O que inclui</a>
-      <a href="#resultados">Resultados</a>
-      <a href="#investimento">Investimento</a>
+      <a href="#resultados">Resultados</a>      <a href="#depoimentos">Depoimentos</a>      <a href="#investimento">Investimento</a>
       <a href="#" class="btn btn-primary btn-sm whatsapp-link">Falar no WhatsApp</a>
     </nav>
     <div class="nav-backdrop" id="navBackdrop" aria-hidden="true"></div>
@@ -41,11 +40,11 @@
 
 <!-- ================= HERO ================= -->
 <section class="hero" id="topo">
-  <div class="hero-blob blob-1" data-speed="0.08"></div>
-  <div class="hero-blob blob-2" data-speed="0.14"></div>
+  <div class="hero-blob blob-1" data-speed="0.22" data-depth="30"></div>
+  <div class="hero-blob blob-2" data-speed="0.32" data-depth="-24"></div>
 
   <div class="container hero-grid">
-    <div class="hero-copy">
+    <div class="hero-copy stagger-group">
       <p class="eyebrow">CURSO ONLINE · AULAS 100% AO VIVO · TESTE DE NIVELAMENTO GRATUÍTO</p>
       <h1>Comece a <span class="accent-text">conversar em inglês</span> em poucas semanas — mesmo travado hoje.</h1>
       <p class="hero-sub">A maioria perde anos decorando gramática e listas de palavras, e trava na hora de falar de verdade. O problema nunca foi sua capacidade de aprender. Foi o método.</p>
@@ -62,40 +61,35 @@
       </div>
     </div>
 
-    <div class="hero-media">
-      <div class="video-card" id="tiltCard">
-        <!-- SUBSTITUA este bloco pelo vídeo real: <video controls src="seu-video.mp4"></video>
-             ou um <iframe> do YouTube/Vimeo com a gravação do professor. -->
-        <button class="play-btn" id="playBtn" aria-label="Assistir vídeo">
-          <svg viewBox="0 0 40 40" fill="none">
-            <circle cx="20" cy="20" r="19" fill="#ffffff"/>
-            <path d="M17 13 L28 20 L17 27 Z" fill="#122a44"/>
-          </svg>
-        </button>
-        <p class="video-caption">Assista à mensagem do professor sobre o método</p>
-      </div>
-
-      <div class="chat-mock" data-speed="-0.06">
-        <div class="chat-header">
-          <span class="chat-dot"></span> Correção em tempo real
-        </div>
-        <div class="chat-bubble student">I no understand this part</div>
-        <div class="chat-bubble teacher">Quase! O certo é: <strong>“I don't understand this part”</strong> ✓</div>
-      </div>
+    <div class="hero-media reveal" style="transition-delay:80ms">
+      <img src="imgs/fox-hero.png" alt="Aluno praticando inglês nas aulas ao vivo da Fox English" class="hero-photo" id="tiltPhoto">
     </div>
   </div>
 </section>
 
+<!-- ================= VÍDEO FLUTUANTE ================= -->
+<div class="video-floating reveal" style="transition-delay:120ms">
+  <div class="video-card-floating" id="tiltCard">
+    <button class="play-btn" id="playBtn" aria-label="Assistir vídeo">
+      <svg viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="19" fill="#ffffff"/>
+        <path d="M17 13 L28 20 L17 27 Z" fill="#122a44"/>
+      </svg>
+    </button>
+    <p class="video-caption">Assista à mensagem do professor sobre o método</p>
+  </div>
+</div>
+
 <!-- ================= SOBRE / MÉTODO ================= -->
 <section class="section" id="metodo">
-  <div class="container section-intro">
+  <div class="container section-intro stagger-group" style="padding-top:40px;">
     <p class="eyebrow">O MÉTODO FOX ENGLISH</p>
     <h2>O problema nunca foi você. <br>Foi o método.</h2>
     <p class="section-lead">Aqui você aprende a falar desde a primeira aula. O foco não é te transformar em especialista em gramática antes de abrir a boca — é fazer você se comunicar de verdade, com acompanhamento de um professor ao vivo.</p>
   </div>
 
   <div class="container">
-    <div class="card-grid">
+    <div class="card-grid stagger-group">
       <div class="feature-card">
         <div class="feature-icon">
           <svg viewBox="0 0 40 40" fill="none" stroke="#e8763c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -144,13 +138,19 @@
 
 <!-- ================= DOR / SITUAÇÕES ================= -->
 <section class="section section-navy" id="dor">
-  <div class="hero-blob blob-3" data-speed="0.1"></div>
-  <div class="container">
+  <div class="hero-blob blob-3" data-speed="0.26" data-depth="22"></div>
+  <svg class="fox-watermark" data-speed="0.16" data-depth="26" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+    <path d="M100 30 L150 75 L150 130 L120 165 L80 165 L50 130 L50 75 Z" fill="#e8763c"/>
+    <path d="M100 30 L65 12 L75 62 Z" fill="#e8763c"/>
+    <path d="M100 30 L135 12 L125 62 Z" fill="#e8763c"/>
+    <path d="M78 108 L100 138 L122 108 L110 152 L90 152 Z" fill="#122a44"/>
+  </svg>
+  <div class="container stagger-group">
     <p class="eyebrow eyebrow-light">POR QUE APRENDER AGORA</p>
     <h2 class="text-light">Você já viveu alguma dessas situações?</h2>
     <p class="section-lead text-light-soft">Enquanto o mundo valoriza cada vez mais quem se comunica em outro idioma, cada mês sem aprender é uma oportunidade a menos.</p>
 
-    <div class="pain-grid">
+    <div class="pain-grid stagger-group">
       <div class="pain-item">
         <span class="pain-num">01</span>
         <p>Precisar do tradutor no celular só para pedir uma comida em viagem.</p>
@@ -173,13 +173,13 @@
 
 <!-- ================= O QUE INCLUI ================= -->
 <section class="section" id="inclui">
-  <div class="container section-intro">
+  <div class="container section-intro stagger-group">
     <p class="eyebrow">RECURSOS INCLUSOS</p>
     <h2>Tudo que você precisa para sair do zero e começar a falar</h2>
   </div>
 
   <div class="container">
-    <div class="resource-grid">
+    <div class="resource-grid stagger-group">
       <div class="resource-card">
         <h3>Aulas ao vivo somente professor e aluno</h3>
         <p>Ensino individual de verdade. O seu progresso é a nossa meta.</p>
@@ -202,12 +202,12 @@
 
 <!-- ================= RESULTADOS ================= -->
 <section class="section section-cream" id="resultados">
-  <div class="container">
+  <div class="container stagger-group">
     <p class="eyebrow">RESULTADO REAL</p>
     <h2>De apenas estudar inglês, para realmente usá-lo</h2>
     <p class="section-lead">Falar, errar, corrigir e evoluir. Foi assim que milhares de alunos destravaram a conversação com a Fox English.</p>
 
-    <div class="stat-grid">
+    <div class="stat-grid stagger-group">
       <div class="stat-card">
         <span class="stat-number">+10<small>mil</small></span>
         <p>alunos já ajudados a destravar o inglês e se comunicar com confiança</p>
@@ -217,8 +217,48 @@
         <p>das aulas são ao vivo — dúvidas e correções em tempo real, nunca sozinho</p>
       </div>
       <div class="stat-card">
-        <span class="stat-number">poucas<small>semanas</small></span>
+        <span class="stat-number">poucas <small>semanas</small></span>
         <p>é o tempo para sair do zero e conseguir manter uma conversa real</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DEPOIMENTOS ================= -->
+<section class="section section-testimonials" id="depoimentos">
+  <div class="container section-intro stagger-group">
+    <p class="eyebrow eyebrow-testimonials">HISTÓRIAS DE SUCESSO</p>
+    <h2>Alunos que destravaram o inglês e mudaram de vida</h2>
+    <p class="section-lead">Confira o que alunos reais dizem sobre a Fox English e como o curso transformou sua relação com o inglês.</p>
+  </div>
+
+  <div class="container">
+    <div class="testimonials-grid stagger-group">
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-name">Marina Silva</p>
+          <p class="testimonial-role">Passou em entrevista internacional</p>
+        </div>
+        <p class="testimonial-text">"Fiz 3 meses de Fox English e consegui aprovação na vaga que queria em uma empresa gringa. As aulas ao vivo foram determinantes — eu realmente praticava falar, não só assistia vídeos."</p>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-name">João Pedro</p>
+          <p class="testimonial-role">Agora viaja sem medo</p>
+        </div>
+        <p class="testimonial-text">"Antes travava ao tentar pedir algo em inglês. Hoje consigo pedir comida, fazer perguntas em hotel, tudo sem tradutor. Mudou minha vida na hora de viajar."</p>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-name">Ana Costa</p>
+          <p class="testimonial-role">Conquistou promoção no trabalho</p>
+        </div>
+        <p class="testimonial-text">"Depois de um ano tentando sozinha, fiz 2 meses com a Fox e saí do zero para ter uma conversa real. Consegui a promoção que esperava há tempo."</p>
       </div>
     </div>
   </div>
@@ -227,7 +267,7 @@
 <!-- ================= INVESTIMENTO ================= -->
 <section class="section" id="investimento">
   <div class="container">
-    <div class="pricing-wrap">
+    <div class="pricing-wrap stagger-group">
       <div class="pricing-copy">
         <p class="eyebrow">INVESTIMENTO</p>
         <h2>O maior custo não é o valor do curso.</h2>
@@ -235,15 +275,21 @@
       </div>
 
       <div class="pricing-card">
-        <p class="pricing-label">o que está incluso</p>
+        <p class="pricing-label">plano completo</p>
+        <div class="price-highlight">
+          <span class="price-amount">R$ 279</span>
+          <p class="price-subtitle">por mês</p>
+        </div>
         <ul class="pricing-list">
           <li>Aulas ao vivo, com interação real com o professor</li>
           <li>Correções em tempo real durante as aulas</li>
-          <li>Prática constante com exercícios de conversação</li>
+          <li>Prática constante com exercícios de convers ação</li>
           <li>Acompanhamento pensado para falar em poucas semanas</li>
           <li>Suporte direto pelo WhatsApp</li>
+          <li>Teste de nivelamento gratuito incluído</li>
         </ul>
-        <a href="#" class="btn btn-primary btn-block whatsapp-link">Quero saber o valor</a>
+        <a href="#" class="btn btn-primary btn-block whatsapp-link">Agendar meu teste agora</a>
+        <p class="pricing-note">Clique acima para agendar seu teste de nivelamento hoje mesmo</p>
       </div>
     </div>
   </div>
@@ -251,8 +297,14 @@
 
 <!-- ================= CTA FINAL ================= -->
 <section class="closing">
-  <div class="hero-blob blob-4" data-speed="0.1"></div>
-  <div class="container closing-inner">
+  <div class="hero-blob blob-4" data-speed="0.26" data-depth="20"></div>
+  <svg class="fox-watermark fox-watermark-right" data-speed="0.18" data-depth="-28" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+    <path d="M100 30 L150 75 L150 130 L120 165 L80 165 L50 130 L50 75 Z" fill="#e8763c"/>
+    <path d="M100 30 L65 12 L75 62 Z" fill="#e8763c"/>
+    <path d="M100 30 L135 12 L125 62 Z" fill="#e8763c"/>
+    <path d="M78 108 L100 138 L122 108 L110 152 L90 152 Z" fill="#ffffff"/>
+  </svg>
+  <div class="container closing-inner stagger-group">
     <p class="eyebrow eyebrow-light">CHEGOU A SUA VEZ</p>
     <h2 class="text-light">Se você esperava o momento certo para aprender inglês, <span class="accent-text">talvez esse momento seja agora.</span></h2>
     <p class="section-lead text-light-soft">Fale com a gente agora pelo WhatsApp, conheça o curso e descubra como você também pode começar a se comunicar em inglês muito mais rápido do que imagina.</p>
@@ -275,6 +327,7 @@
       <a href="#metodo">O método</a>
       <a href="#inclui">O que inclui</a>
       <a href="#resultados">Resultados</a>
+      <a href="#depoimentos">Depoimentos</a>
       <a href="#investimento">Investimento</a>
     </div>
 
