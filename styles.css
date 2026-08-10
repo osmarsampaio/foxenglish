@@ -52,7 +52,7 @@ h3{font-size:18px;}
 .text-light{color:var(--white);}
 .text-light-soft{color:var(--sky-soft);}
 
-.section-lead{font-size:16.5px; color:var(--ink-soft); max-width:600px; line-height:1.65;}
+.section-lead{font-size:17.5px; color:var(--sky); max-width:600px; line-height:1.65;}
 
 /* =========================================================
    BUTTONS
