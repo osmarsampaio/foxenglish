@@ -237,35 +237,4 @@ document.addEventListener('DOMContentLoaded', () => {
       alert('Insira aqui o link ou arquivo do vídeo do professor (troque este botão por um <video> ou <iframe> no index.html).');
     });
   }
-
-  /* ---------- mover vídeo flutuante para antes do hero no mobile ---------- */
-  function moveVideoForMobile() {
-    const mobileQuery = window.matchMedia('(max-width:600px)');
-    const videoFloating = document.querySelector('.video-floating');
-    const hero = document.querySelector('.hero');
-    
-    if (!videoFloating || !hero) return;
-    
-    if (mobileQuery.matches) {
-      // No mobile: mover vídeo para antes do hero
-      if (videoFloating.previousElementSibling !== hero) {
-        hero.parentNode.insertBefore(videoFloating, hero);
-      }
-    } else {
-      // No desktop: manter vídeo depois do hero
-      const metodo = document.querySelector('#metodo');
-      if (metodo && videoFloating.previousElementSibling !== hero) {
-        hero.parentNode.insertBefore(videoFloating, metodo);
-      }
-    }
-  }
-  
-  moveVideoForMobile();
-  
-  // Atualizar quando mudar o tamanho da tela
-  let resizeTimer;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(moveVideoForMobile, 150);
-  });
 });
