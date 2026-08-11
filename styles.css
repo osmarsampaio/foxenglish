@@ -300,9 +300,22 @@ h3{font-size:18px;}
 /* =========================================================
    VIDEO FLUTUANTE (entre seções)
    ========================================================= */
+.video-feature-section{
+  position:relative; z-index:50;
+  background-image:url('imgs/back-img.png');
+  background-size:cover;
+  background-position:center 30%;
+  padding:110px 0;
+}
+.video-feature-section::before{
+  content:'';
+  position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(245,240,227,0.55) 0%, rgba(245,240,227,0.35) 100%);
+  pointer-events:none;
+}
 .video-floating{
-  position:relative; width:90%; max-width:650px; z-index:50;
-  margin:60px auto 40px; pointer-events:auto; overflow:visible;
+  position:relative; z-index:2; width:90%; max-width:650px;
+  margin:0 auto; pointer-events:auto; overflow:visible;
 }
 .video-card-floating{
   aspect-ratio:16/10; border-radius:20px;
@@ -311,13 +324,20 @@ h3{font-size:18px;}
   box-shadow:0 20px 50px rgba(18,42,68,0.25); border:4px solid var(--white); cursor:default; position:relative;
   overflow:visible;
 }
-.video-card-floating::before{
-  content:''; position:absolute; inset:0; background:radial-gradient(circle at 30% 50%, rgba(232,118,60,0.1), transparent);
-  pointer-events:none;
-}
-.video-card-floating .play-btn{width:80px; height:80px; z-index:1;}
+.video-card-floating .play-btn{width:80px; height:80px;}
 .video-card-floating .play-btn svg{width:80px; height:80px;}
-.video-caption{color:var(--sky-soft); font-size:15px; text-align:center; padding:0 36px; font-weight:500; z-index:1;}
+.video-caption{color:var(--sky-soft); font-size:15px; text-align:center; padding:0 36px; font-weight:500;}
+
+/* imagem de fundo só aparece em telas maiores — some no mobile */
+@media (max-width:760px){
+  .video-feature-section{
+    background-image:none;
+    padding:0;
+  }
+  .video-feature-section::before{
+    display:none;
+  }
+}
 
 /* =========================================================
    TESTIMONIALS
@@ -358,7 +378,7 @@ h3{font-size:18px;}
   .stat-grid{grid-template-columns:1fr;}
   .pricing-wrap{grid-template-columns:1fr;}
   .testimonials-grid{grid-template-columns:repeat(2,1fr);}
-  .video-floating{width:95%; margin:0 auto -150px; max-width:100%;}
+  .video-floating{width:95%; margin:0 auto; max-width:100%;}
   #metodo{overflow:visible;}
   .section{overflow:visible;}
 }
@@ -374,10 +394,10 @@ h3{font-size:18px;}
     width:min(100%,420px); margin:0 auto;
     border-radius:0 0 24px 24px;
   }
-  .video-floating{width:90%; margin:0 auto -120px;}
+  .video-floating{width:90%; margin:0 auto;}
   .video-card-floating{overflow:visible;}
   .hero{overflow:visible;}
-  #metodo{padding-top:100px; overflow:visible;}
+  #metodo{overflow:visible;}
   .section{overflow:visible;}
   .nav-close{display:flex;}
   .nav-links.open{transform:translateY(0);}
@@ -412,7 +432,7 @@ h3{font-size:18px;}
   .testimonials-grid{grid-template-columns:1fr;}
   .video-card-large{max-width:100%;}
   .video-floating{width:90%; margin:20px auto 0; position:relative; z-index:1;}
-  .video-card-floating{aspect-ratio:16/10; width:100%; overflow:visible;}
+  .video-card-floating{aspect-ratio:16/10; width:100%; overflow:visible; background:linear-gradient(155deg, var(--navy-soft), var(--navy-deep));}
   .video-card-floating .play-btn{width:50px; height:50px;}
   .video-card-floating .play-btn svg{width:50px; height:50px;}
   .video-caption{font-size:12px; padding:0 16px;}
